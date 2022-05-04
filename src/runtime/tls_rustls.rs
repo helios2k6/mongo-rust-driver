@@ -123,7 +123,7 @@ fn make_rustls_config(cfg: TlsOptions) -> Result<rustls::ClientConfig> {
         file.seek(SeekFrom::Start(0))?;
         let key = loop {
             match read_one(&mut file) {
-                Ok(Some(Item::PKCS8Key(bytes))) | Ok(Some(Item::RSAKey(bytes))) => {
+                Ok(Some(Item::PKCS8Key(bytes))) | Ok(Some(Item::RSAKey(bytes))) | Ok(Some(Item::ECKey(bytes))) => {
                     break rustls::PrivateKey(bytes)
                 }
                 Ok(Some(_)) => continue,
